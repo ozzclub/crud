@@ -30,7 +30,7 @@
                         my: 5,
                         display: 'flex',
                         flexWrap: 'wrap',
-                        borderBottom: '1px dashed #c8ccd3',
+                        borderBottom: '1px dashed #c8cdd3',
                         pb: 8,
                     }}
                 >
@@ -52,7 +52,7 @@
                     <Box
                         sx={{
                             p: 5,
-                            bgcolor: 'background.paper',
+                            bgcolor: 'backgroud.paper',
                             boxShadow: 2,
                             borderRadius: '0.25rem',
                             width: { xs: '100%', sm: '100%', md: '66.667%' },
