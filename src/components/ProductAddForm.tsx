@@ -1,6 +1,9 @@
  'use client'
 
+ import React from "react"
  import Link from "next/link"
+ import Image from "next/image"
+ import { IconButton } from '@mui/material'
  import {
     Box,
     Button,
@@ -13,7 +16,46 @@
  } from '@mui/material'
  import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 
+ interface Product {
+    name: string;
+    price: string;
+    quantity: number;
+    description: string;
+    image: File | null;
+ }
+
  export default function ProductAddForm() {
+    const [fields, setFields] = React.useState<Product>({
+        name: '',
+        price: '',
+        quantity: 0,
+        description: '',
+        image: null,    
+    });
+
+    const [imagePreview, setImagePrieview] = React.useState<string | null>('');
+
+    const handleImageChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+        const files = evt.target.files;
+
+        if (files && files.length > 0) {
+            const file = files[0];
+
+            setFields((prevFields) => ({
+                ...prevFields,
+                image: file,
+            }));
+
+            const reader = new FileReader();
+            reader.onload = () => {
+                if (typeof reader.result === 'string') {
+                    setImagePrieview(reader.result);
+                }
+            }
+            reader.readAsDataURL(file);
+        }
+    };
+
     return (
         <>
             <form>
@@ -58,7 +100,7 @@
                             width: { xs: '100%', sm: '100%', md: '66.667%' },
                         }}
                     >
-                        {/* IMAGE (start) */}
+{/* IMAGE (start) */}
                         <label
                             htmlFor="image"
                             style={{
@@ -71,6 +113,9 @@
                                 type="file"
                                 accept="image/*"
                                 required
+                                id='image'
+                                name='image'
+                                onChange={handleImageChange}
                                 style={{ display: 'none' }}
                             />
                             <Box
@@ -114,6 +159,67 @@
                                 </Typography>
                             </Box>
                         </label>
+
+{/* Image show before upload */}
+                        <Box>
+                            {imagePreview && (
+                                <Box
+                                    sx={{
+                                        position: 'relative',
+                                        mt: 2,
+                                        display: 'inline-flex',
+                                        flexDirection: 'column',
+                                        overflow: 'hidden',
+                                        borderRadius: '0,375rem',
+                                        marginRight: '0,5rem',
+                                        border: '1px solid #E5E5E5',
+                                    }}
+                                >
+                                    <Box
+                                        sx={{
+                                            position: 'relative',
+                                            height: '4rem',
+                                            width: '7rem',
+                                            borderRadius: '0,375rem',
+                                            overflow: 'hidden',
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                        }}
+
+                                    >
+                                        <Image 
+                                            src={imagePreview}
+                                            width={60}
+                                            height={60}
+                                            alt="Apples"
+                                            loading="lazy"
+                                            style={{ objectFit: 'contain' }}
+                                        />
+                                    </Box>
+                                    <IconButton
+                                        sx={{
+                                            position: 'absolute',
+                                            top: '0,25rem',
+                                            display: 'flex',
+                                            height: '1rem',
+                                            width: '1rem',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            borderRadius: '9999px',
+                                            backgroundColor: '#DC2626',
+                                            color: '#FFFFFF',
+                                            fontSize: '0.625rem',
+                                            outline: 'none',
+                                            right: '0.25rem',
+                                        }}
+                                        onClick={() => setImagePrieview(null)}
+                                    >
+                                        x
+                                    </IconButton>
+                                </Box>
+                            )}
+                        </Box>
                     </Box>
                 </Box>
 
@@ -143,7 +249,7 @@
                         }}
                     >
                         
-                        {/* NAME (start) */}
+{/* NAME (start) */}
                         <TextField 
                             label="Name"
                             fullWidth
@@ -151,7 +257,7 @@
                             sx={{ marginBottom: '1.2rem' }}
                         />
 
-                        {/* PRICE (start) */}
+{/* PRICE (start) */}
                         <FormControl fullWidth sx={{ marginBottom: '1.2rem' }}>
                             <InputLabel htmlFor="price">Amount</InputLabel>
                             <OutlinedInput
@@ -164,7 +270,7 @@
                             />
                         </FormControl>
                         
-                        {/* QUANTITY (start) */}
+{/* QUANTITY (start) */}
                         <TextField 
                             type="number"
                             label="Quantity"
@@ -174,7 +280,7 @@
                             sx={{ marginBottom: '1.4rem' }}
                         />
 
-                        {/* DESCRIPTION (start) */}
+{/* DESCRIPTION (start) */}
                         <Box sx={{ position: 'relative' }}>
                             <TextField 
                                 label="Description"
