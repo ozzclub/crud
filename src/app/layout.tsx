@@ -17,7 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body 
+        className={inter.className}
+        style={{ background: 'hsla(0, 0%, 95%, 1.0'}}
+      >
         <AppContainer>
           {children}
         </AppContainer>

@@ -103,7 +103,7 @@
                     <Box
                         sx={{
                             p: 5,
-                            bgcolor: 'backgroud.paper',
+                            bgcolor: 'background.paper',
                             boxShadow: 2,
                             borderRadius: '0.25rem',
                             width: { xs: '100%', sm: '100%', md: '66.667%' },
