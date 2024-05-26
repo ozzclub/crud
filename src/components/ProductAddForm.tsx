@@ -56,6 +56,15 @@
         }
     };
 
+    const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+        const {name, value} = evt.target;
+
+        setFields((prevFields) => ({
+            ...prevFields,
+            [name]: value,
+        }))
+    }
+
     return (
         <>
             <form>
@@ -255,6 +264,10 @@
                             fullWidth
                             required
                             sx={{ marginBottom: '1.2rem' }}
+                            id='name'
+                            name='name'
+                            value={fields.name}
+                            onChange={handleChange}
                         />
 
 {/* PRICE (start) */}
@@ -267,6 +280,10 @@
                                 label="Amount"
                                 fullWidth
                                 required
+                                id='price'
+                                name='price'
+                                value={fields.price}
+                                onChange={handleChange}
                             />
                         </FormControl>
                         
@@ -278,6 +295,10 @@
                             inputProps={{ min: '0' }}
                             required
                             sx={{ marginBottom: '1.4rem' }}
+                            id='quantity'
+                            name='quantity'
+                            value={fields.quantity}
+                            onChange={handleChange}
                         />
 
 {/* DESCRIPTION (start) */}
@@ -290,6 +311,10 @@
                                 minRows={6}
                                 required
                                 sx={{ marginBottom: '1.2rem' }}
+                                id='description'
+                                name='description'
+                                value={fields.description}
+                                onChange={handleChange}
                             />
                         </Box>    
                     </Box>
